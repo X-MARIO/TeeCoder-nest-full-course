@@ -1,0 +1,15 @@
+GET http://localhost:3000/task/by-id/1
+Accept: application/json
+
+###
+GET http://localhost:3000/task/all
+Accept: application/json
+
+###
+POST http://localhost:3000/task/
+Content-Type: application/x-www-form-urlencoded
+
+id = 99 &
+content = new-element
+
+###

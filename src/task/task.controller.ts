@@ -1,23 +1,27 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { TaskService } from './task.service';
 
 @Controller('task')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Get()
+  @Get('all')
   public findAll() {
-    return [
-      {
-        id: 1,
-        title: 'Task 1',
-        isCompleted: false,
-      },
-      {
-        id: 2,
-        title: 'Task 2',
-        isCompleted: true,
-      },
-    ];
+    return this.taskService.findAll();
+  }
+
+  @Get('all')
+  public find() {
+    return this.taskService.findAll();
+  }
+
+  @Get('by-id/:id')
+  public findById(@Param('id') id: string) {
+    return this.taskService.findById(+id);
+  }
+
+  @Post()
+  public create() {
+    return this.taskService.create();
   }
 }
