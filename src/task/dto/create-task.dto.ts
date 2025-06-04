@@ -6,7 +6,11 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  IsUrl,
+  IsUUID,
   Length,
+  Matches,
+  MinLength,
 } from 'class-validator';
 
 export enum TaskTag {
@@ -34,4 +38,21 @@ export class CreateTaskDto {
   @IsEnum(TaskTag, { each: true, message: 'Недопустимое значение тега' })
   @IsOptional()
   tags: string[];
+
+  @IsString({ message: 'Пароль должен быть строкой' })
+  @Matches(
+    `^[0-9A-Za-z]+$`,
+    'Пароль должен содержать хотя бы одну заглавную букву и цифру',
+  )
+  @MinLength(6, { message: 'Пароль должен содержать минимум 6 символов' })
+  password: string;
+
+  @IsUrl(
+    { protocols: ['https'], require_valid_protocol: false },
+    { message: 'Некорректный формат url' },
+  )
+  websiteUrl: string;
+
+  @IsUUID()
+  userId: string;
 }
